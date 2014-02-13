@@ -7,6 +7,7 @@ public class Michael
 
 	public Michael(String name)
 	{
+		this.name = "";
 		this.name = name;
 	}
 
