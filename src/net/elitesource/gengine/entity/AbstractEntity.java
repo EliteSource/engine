@@ -1,9 +1,12 @@
 package net.elitesource.gengine.entity;
 
+import net.elitesource.gengine.graphics.GraphicalWindow;
+
 public abstract class AbstractEntity implements IEntity
 {
 
 	protected float width, height, x, y, r, g, b, a;
+	protected GraphicalWindow window;
 
 	public AbstractEntity(float x, float y, float width, float height)
 	{
@@ -84,6 +87,18 @@ public abstract class AbstractEntity implements IEntity
 		result[2] = b;
 		result[3] = a;
 		return result;
+	}
+
+	@Override
+	public GraphicalWindow getWindow()
+	{
+		return this.window;
+	}
+
+	@Override
+	public void setWindow(GraphicalWindow window)
+	{
+		this.window = window;
 	}
 
 }

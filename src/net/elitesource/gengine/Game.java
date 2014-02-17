@@ -1,7 +1,6 @@
 package net.elitesource.gengine;
 
 import net.elitesource.gengine.graphics.GraphicalWindow;
-import net.elitesource.gengine.models.ModelLoader;
 
 public class Game
 {
@@ -25,15 +24,22 @@ public class Game
 	{
 		this.controller.use();
 		this.window.startGameLoop(60);
-		terminate();
+		try
+		{
+			terminate();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+			System.exit(1);
+		}
 	}
 
 	@SuppressWarnings("deprecation")
-	public void terminate()
+	public void terminate() throws InterruptedException
 	{
 		this.controller.listenInput = false;
 		this.window.stop();
-		this.controller.stop();
+		this.controller.join();
 	}
 
 	public GraphicalWindow getWindow()

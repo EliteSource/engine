@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import org.lwjgl.input.Keyboard;
-
 public class Controller extends Thread implements ActionListener
 {
 

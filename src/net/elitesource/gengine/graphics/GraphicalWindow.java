@@ -12,8 +12,11 @@ import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
+import net.elitesource.gengine.entity.Renderable;
 import net.elitesource.gengine.event.AbstractEvent;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -33,6 +36,8 @@ import org.lwjgl.opengl.DisplayMode;
 public class GraphicalWindow
 {
 
+	public static int WIDTH, HEIGHT;
+
 	protected int width, height;
 	protected GraphicsType gType;
 	protected RenderEngine rEngine;
@@ -42,6 +47,8 @@ public class GraphicalWindow
 	public GraphicalWindow(String windowTitle, int width, int height, GraphicsType gType)
 	{
 		this.width = width;
+		WIDTH = width;
+		HEIGHT = height;
 		this.height = height;
 		this.gType = gType;
 		this.rEngine = new RenderEngine();
@@ -159,6 +166,12 @@ public class GraphicalWindow
 	public int getHeight()
 	{
 		return height;
+	}
+
+	public void addRenderable(Renderable r)
+	{
+		this.rEngine.getRenderables().add(r);
+		r.setWindow(this);
 	}
 
 }
