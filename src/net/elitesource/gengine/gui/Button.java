@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 
@@ -40,9 +41,11 @@ public class Button implements IButton
 	private boolean isClicked, isIdle, isHovered;
 	private float x, y, width, height, r, g, b, a;
 	private Rectangle buttonBounds = new Rectangle();
+	private Rectangle textBounds = new Rectangle();
+	private Insets textPadding = new Insets(5, 5, 5, 5);
 	private GraphicalWindow window;
-	private TrueTypeFont ttf;
-	private Insets textPadding;
+	private TrueTypeFont textFont;
+	private Color textColor;
 
 	public Button(float x, float y, float width, float height, String text)
 	{
@@ -57,23 +60,14 @@ public class Button implements IButton
 		this.width = width;
 		this.height = height;
 		this.buttonBounds.setBounds((int) x, (int) y, (int) width, (int) height);
+		this.textBounds.setBounds(buttonBounds.x + textPadding.left, buttonBounds.y + textPadding.top, buttonBounds.width - textPadding.right, buttonBounds.height - textPadding.bottom);
 		this.r = 1.0f;
 		this.g = 1.0f;
 		this.b = 1.0f;
 		this.a = 1.0f;
-		this.textPadding = new Insets(20, 20, 20, 20);
-		try
-		{
-			InputStream inputStream = ResourceLoader.getResourceAsStream("res/fonts/default.ttf");
-			Font defaultFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			Rectangle textBounds = new Rectangle();
-			textBounds.setBounds((int) x, (int) y, (int) width, (int) height);
-			defaultFont.deriveFont(Utils.getScaledFontSize(this.text, textBounds, new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB).getGraphics(), defaultFont));
-			this.ttf = new TrueTypeFont(defaultFont, false);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		this.textColor = new Color(1f, 1f, 1f, 1f);
+		Font defaultFont = new Font("Times New Roman", Font.PLAIN, 24);
+		setFont(defaultFont, true);
 	}
 
 	@Override
@@ -82,7 +76,8 @@ public class Button implements IButton
 
 		int mx = Mouse.getX();
 		int my = window.getHeight() - Mouse.getY();
-		buttonBounds.setBounds((int) this.getX(), (int) this.getY(), (int) this.getWidth(), (int) this.getHeight());
+		this.buttonBounds.setBounds((int) x, (int) y, (int) width, (int) height);
+		this.textBounds.setBounds(buttonBounds.x + textPadding.left, buttonBounds.y + textPadding.top, buttonBounds.width - textPadding.right, buttonBounds.height - textPadding.bottom);
 		isHovered = buttonBounds.contains(mx, my) && !(Mouse.isButtonDown(0));
 		isClicked = buttonBounds.contains(mx, my) && Mouse.isButtonDown(0);
 		isIdle = !buttonBounds.contains(mx, my);
@@ -112,7 +107,7 @@ public class Button implements IButton
 		glEnd();
 		glPopMatrix();
 
-		this.ttf.drawString(x + this.textPadding.left, y + this.textPadding.top, text);
+		this.textFont.drawString(x + (getWidth() / 2) - (textFont.getWidth(text) / 2), y + (getHeight() / 2) - (textFont.getHeight() / 2), text, textColor);
 	}
 
 	@Override
@@ -166,31 +161,15 @@ public class Button implements IButton
 		return this.models;
 	}
 
-	public void setTextFont(TrueTypeFont ttf)
+	public void setFont(Font font, boolean antialias)
 	{
-		this.ttf = ttf;
+		font = font.deriveFont(Utils.getScaledFontSize(this.text, textBounds, new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB).getGraphics(), font));
+		this.textFont = new TrueTypeFont(font, antialias);
 	}
 
 	public TrueTypeFont getTextFont()
 	{
-		return this.ttf;
-	}
-
-	public void setTextPadding(Insets i)
-	{
-		this.textPadding = i;
-		try
-		{
-			InputStream inputStream = ResourceLoader.getResourceAsStream("res/fonts/default.ttf");
-			Font defaultFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			Rectangle textBounds = new Rectangle();
-			textBounds.setBounds((int) x, (int) y, (int) width, (int) height);
-			defaultFont.deriveFont(Utils.getScaledFontSize(this.text, textBounds, new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB).getGraphics(), defaultFont));
-			this.ttf = new TrueTypeFont(defaultFont, false);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		return this.textFont;
 	}
 
 	@Override
@@ -307,6 +286,11 @@ public class Button implements IButton
 	public void setWindow(GraphicalWindow window)
 	{
 		this.window = window;
+	}
+
+	public void setTextColor(float r, float g, float b, float a)
+	{
+		this.textColor = new Color(r, g, b, a);
 	}
 
 }
