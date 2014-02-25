@@ -68,6 +68,7 @@ public class Button implements IButton
 		this.textColor = new Color(1f, 1f, 1f, 1f);
 		Font defaultFont = new Font("Times New Roman", Font.PLAIN, 24);
 		setFont(defaultFont, true);
+		//
 	}
 
 	@Override

@@ -36,6 +36,7 @@ public class Start implements ActionListener
 		b.setTextColor(0, 0, 1.0f, 1.0f);
 		InputStream in = ResourceLoader.getResourceAsStream("res/fonts/default.ttf");
 		Font font = null;
+		//
 		try
 		{
 			font = Font.createFont(Font.TRUETYPE_FONT, in);
