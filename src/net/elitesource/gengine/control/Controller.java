@@ -1,16 +1,20 @@
-package net.elitesource.gengine;
+package net.elitesource.gengine.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
+
+import net.elitesource.gengine.Game;
 
 public class Controller extends Thread implements ActionListener
 {
 
 	protected Game game;
-	protected boolean listenInput;
+	private boolean listenInput;
 	protected Timer apsTimer;
+	protected ArrayList<IControlHandler> controlHandlers = new ArrayList<IControlHandler>();
 
 	/**
 	 * Creates a new controller object with a specified actions per second (how
@@ -23,7 +27,7 @@ public class Controller extends Thread implements ActionListener
 	public Controller(Game game, int aps)
 	{
 		this.game = game;
-		this.listenInput = true;
+		this.setListening(true);
 		if (aps <= 60)
 		{
 			this.apsTimer = new Timer(1000 / aps, this);
@@ -41,7 +45,7 @@ public class Controller extends Thread implements ActionListener
 	public Controller(Game game)
 	{
 		this.game = game;
-		this.listenInput = true;
+		this.setListening(true);
 		this.apsTimer = new Timer(1000 / 60, this);
 	}
 
@@ -63,12 +67,12 @@ public class Controller extends Thread implements ActionListener
 	public void use()
 	{
 		this.start();
-		this.listenInput = true;
+		this.setListening(true);
 	}
 
 	/**
 	 * Still a WIP, it does what it says. It reloads the controller (for when
-	 * you set contros in game and need to reload them).
+	 * you set controls in game and need to reload them).
 	 * 
 	 * @see The comments inside this method.
 	 * 
@@ -88,6 +92,10 @@ public class Controller extends Thread implements ActionListener
 	 */
 	public void listen()
 	{
+		for (int i = 0; i < controlHandlers.size(); i++)
+		{
+			controlHandlers.get(i).keyCheck();
+		}
 	}
 
 	/**
@@ -109,5 +117,15 @@ public class Controller extends Thread implements ActionListener
 		{
 			this.listen();
 		}
+	}
+
+	public boolean isListening()
+	{
+		return listenInput;
+	}
+
+	public void setListening(boolean listenInput)
+	{
+		this.listenInput = listenInput;
 	}
 }

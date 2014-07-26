@@ -1,5 +1,6 @@
 package net.elitesource.gengine;
 
+import net.elitesource.gengine.control.Controller;
 import net.elitesource.gengine.graphics.GraphicalWindow;
 
 public class Game
@@ -34,10 +35,9 @@ public class Game
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void terminate() throws InterruptedException
 	{
-		this.controller.listenInput = false;
+		this.controller.setListening(false);
 		this.window.stop();
 		this.controller.join();
 	}

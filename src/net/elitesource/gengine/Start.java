@@ -8,6 +8,7 @@ import java.io.InputStream;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 
+import net.elitesource.gengine.control.Controller;
 import net.elitesource.gengine.graphics.GraphicalWindow;
 import net.elitesource.gengine.graphics.GraphicsType;
 import net.elitesource.gengine.gui.ActionListener;
@@ -36,13 +37,12 @@ public class Start implements ActionListener
 		b.setTextColor(0, 0, 1.0f, 1.0f);
 		InputStream in = ResourceLoader.getResourceAsStream("res/fonts/default.ttf");
 		Font font = null;
-		//
+
 		try
 		{
 			font = Font.createFont(Font.TRUETYPE_FONT, in);
 		} catch (FontFormatException | IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		b.setFont(font, true);
