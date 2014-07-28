@@ -1,7 +1,6 @@
 package net.elitesource.gengine.gui;
 
-import net.elitesource.gengine.event.AbstractEvent;
-import net.elitesource.gengine.gui.events.IGuiEvent;
+import net.elitesource.gengine.event.IGuiEvent;
 
 public interface ActionListener
 {

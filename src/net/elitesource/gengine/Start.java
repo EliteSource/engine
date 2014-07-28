@@ -5,19 +5,18 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.util.ResourceLoader;
-
 import net.elitesource.gengine.control.Controller;
+import net.elitesource.gengine.event.ButtonClickEvent;
+import net.elitesource.gengine.event.ButtonHoverEvent;
+import net.elitesource.gengine.event.ButtonIdleEvent;
+import net.elitesource.gengine.event.IGuiEvent;
 import net.elitesource.gengine.graphics.GraphicalWindow;
 import net.elitesource.gengine.graphics.GraphicsType;
 import net.elitesource.gengine.gui.ActionListener;
 import net.elitesource.gengine.gui.Button;
-import net.elitesource.gengine.gui.events.ButtonClickEvent;
-import net.elitesource.gengine.gui.events.ButtonHoverEvent;
-import net.elitesource.gengine.gui.events.ButtonIdleEvent;
-import net.elitesource.gengine.gui.events.IGuiEvent;
 import net.elitesource.gengine.models.Model;
+
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Start implements ActionListener
 {

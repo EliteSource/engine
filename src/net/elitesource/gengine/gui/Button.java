@@ -10,27 +10,21 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glVertex2d;
 
 import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
 import java.util.ArrayList;
+
+import net.elitesource.gengine.event.ButtonClickEvent;
+import net.elitesource.gengine.event.ButtonHoverEvent;
+import net.elitesource.gengine.event.ButtonIdleEvent;
+import net.elitesource.gengine.graphics.GraphicalWindow;
+import net.elitesource.gengine.models.Model;
+import net.elitesource.gengine.utils.Utils;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.util.ResourceLoader;
-
-import net.elitesource.gengine.graphics.GraphicalWindow;
-import net.elitesource.gengine.gui.events.ButtonClickEvent;
-import net.elitesource.gengine.gui.events.ButtonHoverEvent;
-import net.elitesource.gengine.gui.events.ButtonIdleEvent;
-import net.elitesource.gengine.models.Model;
-import net.elitesource.gengine.utils.Utils;
 
 public class Button implements IButton
 {

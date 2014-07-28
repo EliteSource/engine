@@ -1,9 +1,9 @@
 package net.elitesource.gengine.event;
 
-import org.newdawn.slick.opengl.Texture;
-
 import net.elitesource.gengine.graphics.TexturesLoader;
 import net.elitesource.gengine.models.Model;
+
+import org.newdawn.slick.opengl.Texture;
 
 public class TextureLoadEvent extends AbstractEvent
 {

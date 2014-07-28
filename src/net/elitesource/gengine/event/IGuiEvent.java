@@ -1,4 +1,4 @@
-package net.elitesource.gengine.gui.events;
+package net.elitesource.gengine.event;
 
 import net.elitesource.gengine.gui.IGui;
 

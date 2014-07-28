@@ -5,9 +5,9 @@ import static org.lwjgl.opengl.GL11.glClear;
 
 import java.util.ArrayList;
 
-import org.lwjgl.opengl.GL11;
-
 import net.elitesource.gengine.entity.Renderable;
+
+import org.lwjgl.opengl.GL11;
 
 /**
  * This class is an object of the render engine, created by a GraphicalWindow to

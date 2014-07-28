@@ -12,7 +12,6 @@ import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import net.elitesource.gengine.entity.Renderable;
 import net.elitesource.gengine.event.AbstractEvent;
@@ -171,7 +170,7 @@ public class GraphicalWindow
 		}
 	}
 
-	// TODO: Fix events, seems to recreate and redo when events are tryed. Or
+	// FIXME: Fix events, seems to recreate and redo when events are tryed. Or
 	// could be the controller bugging out.
 
 	public void startGameLoop(int fps)
