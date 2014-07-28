@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import net.elitesource.gengine.entity.Renderable;
 import net.elitesource.gengine.event.AbstractEvent;
+import net.elitesource.gengine.event.OGLEventEngine;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -24,7 +25,7 @@ import org.lwjgl.opengl.DisplayMode;
  * 
  * This class is an object of the OpenGL Display thingy. It has a render engine
  * object, which tells the window (this) what to draw. A Graphics Type is
- * basically 2D or 3D. On anothe note, maybe have this class do like,
+ * basically 2D or 3D. On another note, maybe have this class do like,
  * "doEvent(Event e)" for doing OpenGL commands, since this is the thread opengl
  * uses.
  * 
@@ -40,8 +41,8 @@ public class GraphicalWindow
 	protected int width, height;
 	protected GraphicsType gType;
 	protected RenderEngine rEngine;
+	protected OGLEventEngine oglEventEngine;
 	protected String title;
-	protected ArrayList<AbstractEvent> events = new ArrayList<AbstractEvent>();
 
 	public GraphicalWindow(String windowTitle, int width, int height, GraphicsType gType)
 	{
@@ -52,6 +53,7 @@ public class GraphicalWindow
 		this.gType = gType;
 		this.rEngine = new RenderEngine();
 		this.title = windowTitle;
+		this.oglEventEngine = new OGLEventEngine();
 
 		try
 		{
@@ -66,13 +68,14 @@ public class GraphicalWindow
 		initOpenGl(gType);
 	}
 
-	public GraphicalWindow(String windowTitle, int width, int height, GraphicsType gType, RenderEngine rEngine)
+	public GraphicalWindow(String windowTitle, int width, int height, GraphicsType gType, RenderEngine rEngine, OGLEventEngine oglEventEngine)
 	{
 		this.width = width;
 		this.height = height;
 		this.gType = gType;
 		this.rEngine = rEngine;
 		this.title = windowTitle;
+		this.oglEventEngine = oglEventEngine;
 
 		try
 		{
@@ -178,22 +181,16 @@ public class GraphicalWindow
 		while (!Display.isCloseRequested())
 		{
 			Display.setTitle(title);
-			for (int i = 0; i < events.size(); i++)
-			{
-				events.get(i).execute();
-			}
-
-			for (int i = 0; i < events.size(); i++)
-			{
-				if (!events.get(i).isRepeating())
-				{
-					events.remove(events.get(i));
-				}
-			}
+			getOGLEventEngine().runEvents();
 			getRenderEngine().render();
 			Display.update();
 			Display.sync(fps);
 		}
+	}
+
+	private OGLEventEngine getOGLEventEngine()
+	{
+		return this.oglEventEngine;
 	}
 
 	public RenderEngine getRenderEngine()
@@ -220,11 +217,6 @@ public class GraphicalWindow
 	public String getTitle()
 	{
 		return this.title;
-	}
-
-	public void doEvent(AbstractEvent e)
-	{
-		this.events.add(e);
 	}
 
 	public int getWidth()

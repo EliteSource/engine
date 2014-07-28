@@ -5,7 +5,7 @@ import net.elitesource.gengine.models.Model;
 
 import org.newdawn.slick.opengl.Texture;
 
-public class TextureLoadEvent extends AbstractEvent
+public class TextureLoadEvent extends OGLEvent
 {
 
 	protected String[] textureNames;

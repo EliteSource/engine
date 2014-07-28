@@ -6,14 +6,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import net.elitesource.gengine.control.Controller;
-import net.elitesource.gengine.event.ButtonClickEvent;
-import net.elitesource.gengine.event.ButtonHoverEvent;
-import net.elitesource.gengine.event.ButtonIdleEvent;
-import net.elitesource.gengine.event.IGuiEvent;
+import net.elitesource.gengine.event.EventEngine;
 import net.elitesource.gengine.graphics.GraphicalWindow;
 import net.elitesource.gengine.graphics.GraphicsType;
 import net.elitesource.gengine.gui.ActionListener;
 import net.elitesource.gengine.gui.Button;
+import net.elitesource.gengine.gui.event.ButtonClickEvent;
+import net.elitesource.gengine.gui.event.ButtonHoverEvent;
+import net.elitesource.gengine.gui.event.ButtonIdleEvent;
+import net.elitesource.gengine.gui.event.IGuiEvent;
 import net.elitesource.gengine.models.Model;
 
 import org.newdawn.slick.util.ResourceLoader;
@@ -26,7 +27,7 @@ public class Start implements ActionListener
 
 	public static void main(String[] args)
 	{
-		g = new Game(new GraphicalWindow("New Window", 400, 400, GraphicsType.Dim2), new Controller(g, 30));
+		g = new Game(new GraphicalWindow("New Window", 400, 400, GraphicsType.Dim2), new Controller(g, 30), new EventEngine());
 		b = new Button(100, 75, 160, 80, "Test Button");
 		b.getModels().add(new Model("res/images/button_idle"));
 		b.getModels().add(new Model("res/images/button_hover"));

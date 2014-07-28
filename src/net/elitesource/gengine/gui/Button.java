@@ -15,10 +15,10 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import net.elitesource.gengine.event.ButtonClickEvent;
-import net.elitesource.gengine.event.ButtonHoverEvent;
-import net.elitesource.gengine.event.ButtonIdleEvent;
 import net.elitesource.gengine.graphics.GraphicalWindow;
+import net.elitesource.gengine.gui.event.ButtonClickEvent;
+import net.elitesource.gengine.gui.event.ButtonHoverEvent;
+import net.elitesource.gengine.gui.event.ButtonIdleEvent;
 import net.elitesource.gengine.models.Model;
 import net.elitesource.gengine.utils.Utils;
 
