@@ -10,12 +10,9 @@ import static org.lwjgl.opengl.GL11.glBlendFunc;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
-
-import java.util.ArrayList;
-
+import net.elitesource.gengine.engine.OGLEventEngine;
+import net.elitesource.gengine.engine.RenderEngine;
 import net.elitesource.gengine.entity.Renderable;
-import net.elitesource.gengine.event.AbstractEvent;
-import net.elitesource.gengine.event.OGLEventEngine;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -173,9 +170,6 @@ public class GraphicalWindow
 		}
 	}
 
-	// FIXME: Fix events, seems to recreate and redo when events are tryed. Or
-	// could be the controller bugging out.
-
 	public void startGameLoop(int fps)
 	{
 		while (!Display.isCloseRequested())
@@ -232,7 +226,6 @@ public class GraphicalWindow
 	public void addRenderable(Renderable r)
 	{
 		this.rEngine.getRenderables().add(r);
-		r.setWindow(this);
 	}
 
 }

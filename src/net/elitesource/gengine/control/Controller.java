@@ -128,4 +128,14 @@ public class Controller extends Thread implements ActionListener
 	{
 		this.listenInput = listenInput;
 	}
+
+	public void addControlHandler(IControlHandler ch)
+	{
+		this.controlHandlers.add(ch);
+	}
+
+	public void removeControlHandler(IControlHandler ch)
+	{
+		this.controlHandlers.remove(ch);
+	}
 }

@@ -1,11 +1,15 @@
-package net.elitesource.gengine.event;
+package net.elitesource.gengine.engine;
 
 import java.util.ArrayList;
 
+import net.elitesource.gengine.event.AbstractEvent;
+import net.elitesource.gengine.event.OGLEvent;
+
+@Deprecated
 public class EventEngine implements Runnable
 {
 
-	protected ArrayList<AbstractEvent> events = new ArrayList<AbstractEvent>();
+	private ArrayList<AbstractEvent> events = new ArrayList<AbstractEvent>();
 	protected boolean isRunning;
 
 	public EventEngine()
@@ -15,10 +19,12 @@ public class EventEngine implements Runnable
 
 	public void runEvents()
 	{
+
 		for (int i = 0; i < events.size(); i++)
 		{
 			events.get(i).execute();
 		}
+
 		for (int i = 0; i < events.size(); i++)
 		{
 			if (!events.get(i).isRepeating())
@@ -26,6 +32,7 @@ public class EventEngine implements Runnable
 				events.remove(i);
 			}
 		}
+
 	}
 
 	public void registerEvent(AbstractEvent event)
@@ -63,6 +70,7 @@ public class EventEngine implements Runnable
 	@Override
 	public void run()
 	{
+		this.isRunning = true;
 		while (isRunning())
 		{
 			runEvents();

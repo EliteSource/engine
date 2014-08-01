@@ -15,7 +15,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import net.elitesource.gengine.graphics.GraphicalWindow;
+import net.elitesource.gengine.Game;
+import net.elitesource.gengine.entity.AbstractEntity;
 import net.elitesource.gengine.gui.event.ButtonClickEvent;
 import net.elitesource.gengine.gui.event.ButtonHoverEvent;
 import net.elitesource.gengine.gui.event.ButtonIdleEvent;
@@ -26,7 +27,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
-public class Button implements IButton
+public class Button extends AbstractEntity implements IButton
 {
 
 	private String text;
@@ -37,12 +38,13 @@ public class Button implements IButton
 	private Rectangle buttonBounds = new Rectangle();
 	private Rectangle textBounds = new Rectangle();
 	private Insets textPadding = new Insets(5, 5, 5, 5);
-	private GraphicalWindow window;
 	private TrueTypeFont textFont;
 	private Color textColor;
 
 	public Button(float x, float y, float width, float height, String text)
 	{
+		super(x, y, width, height);
+		this.isCollidable = false;
 		this.text = text;
 		this.models = new ArrayList<Model>();
 		this.actionListeners = new ArrayList<ActionListener>();
@@ -70,7 +72,7 @@ public class Button implements IButton
 	{
 
 		int mx = Mouse.getX();
-		int my = window.getHeight() - Mouse.getY();
+		int my = Game.game.getWindow().getHeight() - Mouse.getY();
 		this.buttonBounds.setBounds((int) x, (int) y, (int) width, (int) height);
 		this.textBounds.setBounds(buttonBounds.x + textPadding.left, buttonBounds.y + textPadding.top, buttonBounds.width - textPadding.right, buttonBounds.height - textPadding.bottom);
 		isHovered = buttonBounds.contains(mx, my) && !(Mouse.isButtonDown(0));
@@ -168,74 +170,6 @@ public class Button implements IButton
 	}
 
 	@Override
-	public void setX(float f)
-	{
-		this.x = f;
-	}
-
-	@Override
-	public void setY(float f)
-	{
-		this.y = f;
-	}
-
-	@Override
-	public float getX()
-	{
-		return this.x;
-	}
-
-	@Override
-	public float getY()
-	{
-		return this.y;
-	}
-
-	@Override
-	public void setWidth(float f)
-	{
-		this.width = f;
-	}
-
-	@Override
-	public void setHeight(float f)
-	{
-		this.height = f;
-	}
-
-	@Override
-	public float getWidth()
-	{
-		return this.width;
-	}
-
-	@Override
-	public float getHeight()
-	{
-		return this.height;
-	}
-
-	@Override
-	public void setColor(float r, float g, float b, float a)
-	{
-		this.r = r;
-		this.g = g;
-		this.b = b;
-		this.a = a;
-	}
-
-	@Override
-	public float[] getColor()
-	{
-		float[] result = new float[4];
-		result[0] = this.r;
-		result[1] = this.g;
-		result[2] = this.b;
-		result[3] = this.a;
-		return result;
-	}
-
-	@Override
 	public boolean isClicked()
 	{
 		return this.isClicked;
@@ -271,21 +205,15 @@ public class Button implements IButton
 		this.text = text;
 	}
 
-	@Override
-	public GraphicalWindow getWindow()
-	{
-		return this.window;
-	}
-
-	@Override
-	public void setWindow(GraphicalWindow window)
-	{
-		this.window = window;
-	}
-
 	public void setTextColor(float r, float g, float b, float a)
 	{
 		this.textColor = new Color(r, g, b, a);
+	}
+
+	@Override
+	public void onCollide(AbstractEntity collidedObject)
+	{
+		return;
 	}
 
 }

@@ -1,6 +1,8 @@
-package net.elitesource.gengine.event;
+package net.elitesource.gengine.engine;
 
 import java.util.ArrayList;
+
+import net.elitesource.gengine.event.OGLEvent;
 
 public class OGLEventEngine
 {

@@ -1,5 +1,7 @@
 - Animation Engine
 - Collision Engine (Idea: Only check collision onEntityMove();)
-- Fix Event Engine
 - Tweak render engine (render distances)
 - Add new events (onMove(), onCollide(), onEvent etc..)
+- Add Location to Entity
+- Rewrite model system, should include actually how to draw it instead of just textures.
+- Fix collision engine

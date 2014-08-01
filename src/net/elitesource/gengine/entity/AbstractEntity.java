@@ -1,12 +1,15 @@
 package net.elitesource.gengine.entity;
 
-import net.elitesource.gengine.graphics.GraphicalWindow;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public abstract class AbstractEntity implements IEntity
 {
 
 	protected float width, height, x, y, r, g, b, a;
-	protected GraphicalWindow window;
+	protected Rectangle collisionBox;
+	protected boolean isCollidable;
+	protected ArrayList<AbstractEntity> collidedEntities;
 
 	public AbstractEntity(float x, float y, float width, float height)
 	{
@@ -19,6 +22,10 @@ public abstract class AbstractEntity implements IEntity
 		this.g = 1.0f;
 		this.b = 1.0f;
 		this.a = 1.0f;
+		this.collisionBox = new Rectangle();
+		this.collisionBox.setBounds((int) x, (int) y, (int) width, (int) height);
+		this.isCollidable = true;
+		this.collidedEntities = new ArrayList<AbstractEntity>();
 	}
 
 	@Override
@@ -90,15 +97,27 @@ public abstract class AbstractEntity implements IEntity
 	}
 
 	@Override
-	public GraphicalWindow getWindow()
+	public Rectangle getCollisionBox()
 	{
-		return this.window;
+		this.collisionBox.setBounds((int) x, (int) y, (int) width, (int) height);
+		return this.collisionBox;
 	}
 
 	@Override
-	public void setWindow(GraphicalWindow window)
+	public boolean isCollidable()
 	{
-		this.window = window;
+		return this.isCollidable;
+	}
+
+	@Override
+	public void setCollidable(boolean collidable)
+	{
+		this.isCollidable = collidable;
+	}
+
+	public boolean collides(AbstractEntity e2)
+	{
+		return this.getCollisionBox().intersects(e2.getCollisionBox());
 	}
 
 }

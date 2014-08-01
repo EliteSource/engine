@@ -1,4 +1,4 @@
-package net.elitesource.gengine.graphics;
+package net.elitesource.gengine.engine;
 
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
@@ -36,7 +36,6 @@ public class RenderEngine
 		{
 			renderables.get(i).render();
 		}
-
 	}
 
 	public void clearRenderables()
@@ -48,6 +47,5 @@ public class RenderEngine
 	{
 		return this.renderables;
 	}
-
 
 }

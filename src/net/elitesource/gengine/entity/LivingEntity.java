@@ -1,8 +1,10 @@
 package net.elitesource.gengine.entity;
 
+import net.elitesource.gengine.Game;
+import net.elitesource.gengine.event.CollisionCheckEvent;
 import net.elitesource.gengine.utils.Location;
 
-public abstract class LivingEntity extends AbstractEntity
+public abstract class LivingEntity extends AbstractEntity implements ILivingEntity
 {
 
 	protected float health, movementSpeed, attackSpeed, attackDamage;
@@ -28,26 +30,6 @@ public abstract class LivingEntity extends AbstractEntity
 		this.movementSpeed = 1.0f;
 		this.attackSpeed = 1.0f;
 		this.attackDamage = 1.0f;
-	}
-
-	public void move(Location location)
-	{
-		if (this.x < location.getX())
-		{
-			setX(getX() + movementSpeed);
-		}
-		if (this.x > location.getX())
-		{
-			setX(getX() - movementSpeed);
-		}
-		if (this.y < location.getY())
-		{
-			setY(getY() + movementSpeed);
-		}
-		if (this.y > location.getY())
-		{
-			setY(getY() - movementSpeed);
-		}
 	}
 
 	public float getHealth()
