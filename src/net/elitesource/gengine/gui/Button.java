@@ -15,6 +15,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import net.elitesource.gengine.CollisionEvent;
 import net.elitesource.gengine.Game;
 import net.elitesource.gengine.entity.AbstractEntity;
 import net.elitesource.gengine.gui.event.ButtonClickEvent;
@@ -211,9 +212,9 @@ public class Button extends AbstractEntity implements IButton
 	}
 
 	@Override
-	public void onCollide(AbstractEntity collidedObject)
+	public void onCollide(ArrayList<CollisionEvent> event)
 	{
-		return;
+
 	}
 
 }

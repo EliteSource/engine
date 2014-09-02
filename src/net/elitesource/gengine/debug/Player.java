@@ -8,7 +8,10 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glVertex2d;
-import net.elitesource.gengine.entity.AbstractEntity;
+
+import java.util.ArrayList;
+
+import net.elitesource.gengine.CollisionEvent;
 import net.elitesource.gengine.entity.LivingEntity;
 
 public class Player extends LivingEntity
@@ -21,12 +24,6 @@ public class Player extends LivingEntity
 
 	@Override
 	public void onMove()
-	{
-
-	}
-
-	@Override
-	public void onCollide(AbstractEntity collidedObject)
 	{
 
 	}
@@ -47,6 +44,13 @@ public class Player extends LivingEntity
 		glVertex2d(x, y + height);
 		glEnd();
 		glPopMatrix();
+	}
+
+	@Override
+	public void onCollide(ArrayList<CollisionEvent> event)
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 }

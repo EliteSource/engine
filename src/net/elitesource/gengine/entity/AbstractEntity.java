@@ -3,13 +3,19 @@ package net.elitesource.gengine.entity;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import net.elitesource.gengine.CollisionEvent;
+import net.elitesource.gengine.CollisionType;
+
 public abstract class AbstractEntity implements IEntity
 {
 
 	protected float width, height, x, y, r, g, b, a;
 	protected Rectangle collisionBox;
 	protected boolean isCollidable;
-	protected ArrayList<AbstractEntity> collidedEntities;
+	//TODO NEed to find a way to remove the collision events.. maybe add a check in the collision engine for those entities (if they're still collided)
+	protected ArrayList<CollisionEvent> collisionEvents = new ArrayList<CollisionEvent>();
+
+	//TODO IDEA: Collisions Have custom IDS
 
 	public AbstractEntity(float x, float y, float width, float height)
 	{
@@ -25,7 +31,6 @@ public abstract class AbstractEntity implements IEntity
 		this.collisionBox = new Rectangle();
 		this.collisionBox.setBounds((int) x, (int) y, (int) width, (int) height);
 		this.isCollidable = true;
-		this.collidedEntities = new ArrayList<AbstractEntity>();
 	}
 
 	@Override
@@ -115,9 +120,112 @@ public abstract class AbstractEntity implements IEntity
 		this.isCollidable = collidable;
 	}
 
-	public boolean collides(AbstractEntity e2)
+	@Override
+	public ArrayList<CollisionEvent> collides(AbstractEntity e)
 	{
-		return this.getCollisionBox().intersects(e2.getCollisionBox());
+		ArrayList<CollisionEvent> result = new ArrayList<CollisionEvent>();
+
+		if (e.getCollisionBox().intersects(this.getCollisionBox()))
+		{
+
+			if (this.getCollisionBox().intersectsLine(e.getX(), e.getY(), e.getX() + e.getWidth(), e.getY()))
+			{
+				/*	OTHER TOP
+				 * x----x
+				 * |	|
+				 * |	|
+				 * ------
+				 */
+				result.add(new CollisionEvent(e, this, CollisionType.BOT));
+			}
+			if (this.getCollisionBox().intersectsLine(e.getX() + e.getWidth(), e.getY(), e.getX() + e.getWidth(), e.getY() + e.getHeight()))
+			{
+				/*	OTHER RIGHT
+				 * -----x
+				 * |	|
+				 * |	|
+				 * -----x
+				 */
+				result.add(new CollisionEvent(e, this, CollisionType.LEFT));
+			}
+			if (this.getCollisionBox().intersectsLine(e.getX() + e.getWidth(), e.getY() + e.getHeight(), e.getX(), e.getY() + e.getHeight()))
+			{
+				/* OTHER BOTTOM
+				 * ------
+				 * |	|
+				 * |	|
+				 * x----x
+				 */
+				result.add(new CollisionEvent(e, this, CollisionType.TOP));
+			}
+			if (this.getCollisionBox().intersectsLine(e.getX(), e.getY(), e.getX(), e.getY() + e.getHeight()))
+			{
+				/* OTHER LEFT
+				 * x-----
+				 * |	|
+				 * |	|
+				 * x-----
+				 */
+				result.add(new CollisionEvent(e, this, CollisionType.RIGHT));
+			}
+
+		}
+
+		//FIXME Probably something wrong with this code..
+		if (result.size() > 0)
+		{
+			ArrayList<CollisionEvent> nonDupedEvents = new ArrayList<CollisionEvent>();
+
+			for (CollisionEvent resultEvent : result)
+			{
+				if (getCollisionEvents().size() > 0)
+				{
+					for (CollisionEvent collisionEvent : getCollisionEvents())
+					{
+						System.out.println(result.size());
+						if (resultEvent.getCollisionType() == collisionEvent.getCollisionType() && resultEvent.getCollidedEntity() == collisionEvent.getCollidedEntity() && resultEvent.getEntity() == collisionEvent.getEntity())
+						{
+
+						} else
+						{
+							nonDupedEvents.add(resultEvent);
+						}
+
+					}
+
+				} else
+				{
+					getCollisionEvents().add(resultEvent);
+				}
+			}
+
+			for (CollisionEvent e3 : nonDupedEvents)
+			{
+				collisionEvents.add(e3);
+			}
+
+		}
+
+		if (collisionEvents.size() > 200)
+		{
+			try
+			{
+				throw new Exception("Uh Oh!");
+			} catch (Exception e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.exit(1);
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	public ArrayList<CollisionEvent> getCollisionEvents()
+	{
+		return this.collisionEvents;
 	}
 
 }
